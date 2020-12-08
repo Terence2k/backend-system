@@ -18,3 +18,11 @@ export function validUsername(str) {
   const valid_map = ['admin', 'editor']
   return valid_map.indexOf(str.trim()) >= 0
 }
+/**
+ * @param {string} str
+ * @returns {Boolean}
+ */
+export function validMobile(str) {
+  const regExp = /^1[3,5,7,8]\d{9}$/
+  return regExp.test(str)
+}
