@@ -16,10 +16,9 @@ export default {
   actions: {
     async login(context, payload) {
       const res = await login(payload)
-      if (res.data.success) {
-        context.commit('setToken', res.data.data)
-        console.log(res.data.data, 'toekn')
-      }
+
+      console.log(res, 'actions')
+      context.commit('setToken', res)
     }
   }
 }

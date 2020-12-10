@@ -118,11 +118,20 @@ export default {
         this.$refs.password.focus()
       })
     },
-    handleLogin() {
-      this.$refs.loginForm.validate((valid) => {
+    async handleLogin() {
+      this.loading = true
+      try {
+        const valid = await this.$refs.loginForm.validate()
         console.log(valid, 'valid')
-        this.$store.dispatch('user/login', this.loginForm)
-      })
+        if (valid) {
+          await this.$store.dispatch('user/login', this.loginForm)
+          this.$router.push('/')
+        }
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.loading = false
+      }
     }
   }
 }
