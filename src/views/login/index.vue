@@ -56,7 +56,7 @@
         style="width: 100%; margin-bottom: 30px"
         @click.native.prevent="handleLogin"
       >Login</el-button>
-
+      <div>{{ $store.state.user.token }}</div>
       <div class="tips">
         <span style="margin-right: 20px">嗲花号码: 18000000000</span>
         <span> password: any</span>
@@ -83,8 +83,8 @@ export default {
     }
     return {
       loginForm: {
-        mobile: '18000000000',
-        password: '111111'
+        mobile: '13800000002',
+        password: '123456'
       },
       loginRules: {
         mobile: [
@@ -120,21 +120,8 @@ export default {
     },
     handleLogin() {
       this.$refs.loginForm.validate((valid) => {
-        if (valid) {
-          this.loading = true
-          this.$store
-            .dispatch('user/login', this.loginForm)
-            .then(() => {
-              this.$router.push({ path: this.redirect || '/' })
-              this.loading = false
-            })
-            .catch(() => {
-              this.loading = false
-            })
-        } else {
-          console.log('error submit!!')
-          return false
-        }
+        console.log(valid, 'valid')
+        this.$store.dispatch('user/login', this.loginForm)
       })
     }
   }
