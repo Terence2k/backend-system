@@ -8,11 +8,17 @@ export function login(data) {
   })
 }
 
-export function getInfo(token) {
+export function getInfo() {
   return request({
-    url: '/vue-admin-template/user/info',
-    method: 'get',
-    params: { token }
+    url: '/sys/profile',
+    method: 'post'
+
+  })
+}
+
+export function getUserInfoId(id) {
+  return request({
+    url: `/sys/user/${id}`
   })
 }
 
@@ -22,3 +28,4 @@ export function logout() {
     method: 'post'
   })
 }
+

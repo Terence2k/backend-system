@@ -1,3 +1,4 @@
+import store from '@/store'
 import axios from 'axios'
 import { Message } from 'element-ui'
 // create an axios instance
@@ -7,7 +8,16 @@ const service = axios.create({
 })
 
 // request interceptor
-service.interceptors.request.use(
+service.interceptors.request.use(config => {
+  if (store.getters.token) {
+    config.headers.Authorization = `Bearer ${store.getters.token}`
+
+    return config
+  }
+}, err => {
+  return Promise.reject(err)
+}
+
 )
 
 // response interceptor
@@ -25,6 +35,7 @@ service.interceptors.response.use(
     }
   }, err => {
     console.dir(err)
+    Message.error(err.response.data.message)
   }
 )
 
