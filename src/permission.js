@@ -10,6 +10,7 @@ const whiteList = ['/login', '/404']
 router.beforeEach((to, from, next) => {
   NProgress.start()
   if (store.getters.token) {
+    console.log('zheli')
     if (to.path === '/login') {
       next('/')
     } else {

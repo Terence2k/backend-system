@@ -1,5 +1,5 @@
 import { login, getInfo, getUserInfoId } from '@/api/user'
-import { setToken, getToken } from '@/utils/auth'
+import { setToken, getToken, removeToken } from '@/utils/auth'
 
 export default {
   namespaced: true,
@@ -15,13 +15,21 @@ export default {
     },
     setUserInfo(state, payload) {
       state.userInfo = payload
+    },
+    removeToken(state) {
+      console.log('clear token')
+      state.token = ''
+      removeToken()
+    },
+    removeUserInfo(state) {
+      console.log('clear info')
+      state.userInfo = ''
     }
   },
   actions: {
     async login(context, payload) {
       const res = await login(payload)
 
-      console.log(res, 'actions')
       context.commit('setToken', res)
     },
     async getUserInfo(context) {
@@ -31,6 +39,10 @@ export default {
       const userInfo = { ...res, ...resId }
       console.log(userInfo, 'res')
       context.commit('setUserInfo', userInfo)
+    },
+    logout({ commit }) {
+      commit('removeToken')
+      commit('removeUserInfo')
     }
 
   }

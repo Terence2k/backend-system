@@ -14,6 +14,7 @@ service.interceptors.request.use(config => {
 
     return config
   }
+  return config
 }, err => {
   return Promise.reject(err)
 }
@@ -26,10 +27,10 @@ service.interceptors.response.use(
     console.log(res.data, '拦截')
     const { success, message, data } = res.data
     if (success) {
+      Message.success(message)
       return data
     } else {
       Message.error(message)
-
       return Promise.reject(new Error(message))
       // 这是把错误数据返回给函数，让catch捕捉
     }

@@ -67,7 +67,7 @@
 
 <script>
 import { validMobile } from '@/utils/validate'
-
+// import { Message } from 'element-ui'
 export default {
   name: 'Login',
   data() {
@@ -124,6 +124,7 @@ export default {
         const valid = await this.$refs.loginForm.validate()
         console.log(valid, 'valid')
         if (valid) {
+          console.log('send')
           await this.$store.dispatch('user/login', this.loginForm)
           this.$router.push('/')
         }
