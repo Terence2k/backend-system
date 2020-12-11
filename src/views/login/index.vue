@@ -125,6 +125,7 @@ export default {
         console.log(valid, 'valid')
         if (valid) {
           console.log('send')
+          this.$message.success('登陆成功')
           await this.$store.dispatch('user/login', this.loginForm)
           this.$router.push('/')
         }

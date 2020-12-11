@@ -1,6 +1,8 @@
 import store from '@/store'
 import axios from 'axios'
 import { Message } from 'element-ui'
+import { getTimeStamp } from '@/utils/auth'
+import router from '@/router'
 // create an axios instance
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
@@ -10,9 +12,15 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(config => {
   if (store.getters.token) {
-    config.headers.Authorization = `Bearer ${store.getters.token}`
-
-    return config
+    if (IsCheckTimeOut()) {
+      Message.error('token超时了')
+      store.dispatch('user/logout')
+      router.push('/login')
+      return Promise.reject(new Error('token 超时'))
+    } else {
+      config.headers.Authorization = `Bearer ${store.getters.token}`
+      return config
+    }
   }
   return config
 }, err => {
@@ -27,7 +35,7 @@ service.interceptors.response.use(
     console.log(res.data, '拦截')
     const { success, message, data } = res.data
     if (success) {
-      Message.success(message)
+      // Message.success(message)
       return data
     } else {
       Message.error(message)
@@ -39,5 +47,11 @@ service.interceptors.response.use(
     Message.error(err.response.data.message)
   }
 )
+
+function IsCheckTimeOut() {
+  var currentTime = Date.now()
+  var timeStamp = getTimeStamp()
+  return (currentTime - timeStamp) / 1000 >= 2
+}
 
 export default service

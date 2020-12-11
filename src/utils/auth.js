@@ -13,3 +13,15 @@ export function setToken(token) {
 export function removeToken() {
   return Cookies.remove(TokenKey)
 }
+
+const timeKey = 'hrproject-timestamp-key'
+export function setTimeStamp() {
+  return Cookies.set(timeKey, Date.now())
+}
+
+export function getTimeStamp() {
+  return Cookies.get(timeKey)
+}
+export function removeTimeStamp() {
+  return Cookies.remove(timeKey)
+}

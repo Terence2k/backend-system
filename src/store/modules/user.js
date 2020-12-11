@@ -1,5 +1,5 @@
 import { login, getInfo, getUserInfoId } from '@/api/user'
-import { setToken, getToken, removeToken } from '@/utils/auth'
+import { setToken, getToken, removeToken, setTimeStamp, removeTimeStamp } from '@/utils/auth'
 
 export default {
   namespaced: true,
@@ -20,6 +20,7 @@ export default {
       console.log('clear token')
       state.token = ''
       removeToken()
+      removeTimeStamp()
     },
     removeUserInfo(state) {
       console.log('clear info')
@@ -31,6 +32,7 @@ export default {
       const res = await login(payload)
 
       context.commit('setToken', res)
+      setTimeStamp()
     },
     async getUserInfo(context) {
       const res = await getInfo()
@@ -41,6 +43,7 @@ export default {
       context.commit('setUserInfo', userInfo)
     },
     logout({ commit }) {
+      console.log('执行清除token，info')
       commit('removeToken')
       commit('removeUserInfo')
     }
