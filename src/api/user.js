@@ -29,3 +29,15 @@ export function logout() {
   })
 }
 
+export function getDepartments() {
+  return request({
+    url: '/company/department'
+  })
+}
+
+export function delDepartment(id) {
+  return request({
+    url: `/company/department/${id}`,
+    method: 'delete'
+  })
+}
