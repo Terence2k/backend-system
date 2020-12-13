@@ -13,45 +13,45 @@ const service = axios.create({
 service.interceptors.request.use(config => {
   if (store.getters.token) {
     if (IsCheckTimeOut()) {
-      Message.error('token超时了')
+      // Message.error(config.data.message)
+      // Message.error('token超时了')
       store.dispatch('user/logout')
       router.push('/login')
-      return Promise.reject(new Error('token 超时'))
+      return Promise.reject(new Error('验证过期'))
     } else {
       config.headers.Authorization = `Bearer ${store.getters.token}`
-      return config
     }
   }
   return config
-}, err => {
-  return Promise.reject(err)
-}
-
-)
+})
 
 // response interceptor
-service.interceptors.response.use(
-  (res) => {
-    console.log(res.data, '拦截')
-    const { success, message, data } = res.data
-    if (success) {
-      // Message.success(message)
-      return data
-    } else {
-      Message.error(message)
-      return Promise.reject(new Error(message))
-      // 这是把错误数据返回给函数，让catch捕捉
-    }
-  }, err => {
-    console.dir(err)
-    Message.error(err.response.data.message)
+service.interceptors.response.use((res) => {
+  console.log(res.data, '响应拦截')
+  const { success, message, data } = res.data
+  if (success) {
+    return data
+  } else {
+    Message.error(message)
+    return Promise.reject(new Error(message))
+    // 这是把错误数据返回给函数，让catch捕捉
   }
+}, err => {
+  if (err.response && err.response.data && err.response.data.code === 10002) {
+    store.dispatch('user/logout')
+    router.push('/login')
+  }
+  // console.dir(err)
+  Message.error(err.message)
+  // Message.error(err.response.data.message)
+  return Promise.reject(new Error('相应报错'))
+}
 )
 
 function IsCheckTimeOut() {
-  var currentTime = Date.now()
-  var timeStamp = getTimeStamp()
-  return (currentTime - timeStamp) / 1000 >= 2
+  const currentTime = Date.now()
+  const timeStamp = getTimeStamp()
+  return (currentTime - timeStamp) / 1000 >= 500
 }
 
 export default service

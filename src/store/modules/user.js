@@ -17,13 +17,11 @@ export default {
       state.userInfo = payload
     },
     removeToken(state) {
-      console.log('clear token')
       state.token = ''
       removeToken()
       removeTimeStamp()
     },
     removeUserInfo(state) {
-      console.log('clear info')
       state.userInfo = ''
     }
   },
@@ -39,11 +37,10 @@ export default {
       console.log(res.userId)
       const resId = await getUserInfoId(res.userId)
       const userInfo = { ...res, ...resId }
-      console.log(userInfo, 'res')
+
       context.commit('setUserInfo', userInfo)
     },
     logout({ commit }) {
-      console.log('执行清除token，info')
       commit('removeToken')
       commit('removeUserInfo')
     }

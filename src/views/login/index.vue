@@ -122,15 +122,15 @@ export default {
       this.loading = true
       try {
         const valid = await this.$refs.loginForm.validate()
-        console.log(valid, 'valid')
+
         if (valid) {
-          console.log('send')
-          this.$message.success('登陆成功')
+          // this.$message.success('登陆成功')
           await this.$store.dispatch('user/login', this.loginForm)
           this.$router.push('/')
         }
       } catch (error) {
-        console.log(error)
+        // this.$message.error(error)
+        console.log(error, 'error')
       } finally {
         this.loading = false
       }

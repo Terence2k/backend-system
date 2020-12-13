@@ -3,14 +3,11 @@ import store from './store'
 
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
-// import { getToken } from '@/utils/auth' // get token from cookie
-// import getPageTitle from '@/utils/get-page-title'
 
 const whiteList = ['/login', '/404']
 router.beforeEach((to, from, next) => {
   NProgress.start()
   if (store.getters.token) {
-    console.log('token验证')
     if (to.path === '/login') {
       next('/')
     } else {
