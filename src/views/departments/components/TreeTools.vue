@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-container">
+  <div class="tree-container">
 
     <el-row :data="data" type="flex" justify="space-between" align="middle" style="height: 40px;width:100%;">
       <el-col>
@@ -48,32 +48,24 @@ export default {
     async  operateDepts(type) {
       try {
         if (type === 'add') {
-          console.log(1)
+          this.$emit('showdialog', this.data)
         } else if (type === 'del') {
-          const res = await delDepartment(this.data.id)
-          console.log(res)
           console.log('del')
+          await this.$confirm('确定删除该部门吗')
+          await delDepartment(this.data.id)
+          this.$emit('reload')
         } else if (type === 'edit') {
-          console.log(2)
+          console.log('edit')
+          this.$emit('edit', this.data)
         }
       } catch (error) {
-        console.log(error)
+        console.log('?')
       }
     }
-
   }
-
 }
 </script>
 
 <style lang="scss" scoped>
-.dashboard {
-  &-container {
-    margin: 30px;
-  }
-  &-text {
-    font-size: 30px;
-    line-height: 46px;
-  }
-}
+
 </style>

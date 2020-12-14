@@ -7,10 +7,17 @@
       <hr>
       <el-tree :data="departments" :props="defaultProps">
 
-        <TreeTools slot-scope="scope" :data="scope.data" style="height: 40px;width:100%;" />
+        <TreeTools
+          slot-scope="scope"
+          :data="scope.data"
+          style="height: 40px;width:100%;"
+          @showdialog="showDialog"
+          @reload="getDepartment"
+          @edit="editDepartment"
+        />
       </el-tree>
     </el-card>
-    <!-- <Addlist :dialog-form-visible="true" /> -->
+    <Addlist ref="addList" :is-show.sync="isShow" :info="info" @reload="getDepartment" />
   </div>
 </template>
 
@@ -19,6 +26,7 @@ import { getDepartments } from '@/api/user'
 import { mapGetters } from 'vuex'
 import TreeTools from './components/TreeTools'
 import Addlist from './components/addList'
+
 export default {
   name: 'Dashboard',
   components: {
@@ -28,30 +36,7 @@ export default {
 
   data() {
     return {
-      data: [
-        {
-          name: '总裁办',
-          hr: '皇帝',
-          children: [
-            {
-              name: '董事会',
-              hr: '皇子'
-            }
-          ]
-        },
-        {
-          name: '行政部',
-          hr: '太监'
-        },
-        {
-          name: '人事部',
-          hr: '东窗'
-        },
-        {
-          name: '财政部'
 
-        }
-      ],
       defaultProps: {
         label: 'name',
         children: 'children'
@@ -60,7 +45,9 @@ export default {
         name: '江苏传智播客教育科技股份有限公司',
         manager: '负责人'
       },
-      departments: []
+      departments: [],
+      isShow: false,
+      info: {}
 
     }
   },
@@ -92,10 +79,21 @@ export default {
         }
       })
       return arr
+    },
+    showDialog(info) {
+      this.isShow = true
+      console.log(info, 'create info')
+      this.info = info
+    },
+    editDepartment(info) {
+      this.isShow = true
+      console.log(info, 'index get edit info')
+      // this.$nextTick(() => {
+      //   this.$refs.addList.getDepartmentDetails()
+      // })
     }
 
   }
-
 }
 </script>
 
