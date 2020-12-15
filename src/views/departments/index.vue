@@ -5,12 +5,13 @@
 
       <TreeTools :data="company" style="height: 40px;" :is-root="true" />
       <hr>
-      <el-tree :data="departments" :props="defaultProps">
+      <el-tree :data="departments" :props="defaultProps" :default-expand-all="true">
 
         <TreeTools
           slot-scope="scope"
           :data="scope.data"
           style="height: 40px;width:100%;"
+
           @showdialog="showDialog"
           @reload="getDepartment"
           @edit="editDepartment"

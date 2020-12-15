@@ -50,18 +50,29 @@ export default {
     const validateDeptsName = (rule, value, callback) => {
       getDepartments().then(data => {
         const { depts } = data
-
-        depts.some(item => item.name === value && item.pid === this.info.id)
-          ? callback(new Error('名字重复了'))
-          : callback()
+        if (this.formData.id) {
+          depts.some(item => item.id === !this.formData.id && item.name === value && item.pid === this.info.pid)
+            ? callback(new Error('名字重复了'))
+            : callback()
+        } else {
+          depts.some(item => item.name === value && item.pid === this.info.id)
+            ? callback(new Error('名字重复了'))
+            : callback()
+        }
       })
     }
     const validataCode = async(rule, value, callback) => {
       const res = await getDepartments()
-      console.log(res.depts, 'res')
-      res.depts.some(item => item.code === value && item.pid === this.info.id)
-        ? callback(new Error('code重复了'))
-        : callback()
+      console.log(res.depts, 'res code 检验')
+      if (this.formData.id) {
+        res.depts.some(item => item.id === !this.formData.id && item.code === value && value)
+          ? callback(new Error('code重复了'))
+          : callback()
+      } else {
+        res.depts.some(item => item.code === value && value)
+          ? callback(new Error('code重复了'))
+          : callback()
+      }
     }
     return {
       employeesInfo: [],
@@ -124,6 +135,7 @@ export default {
       }
       this.$refs.biaoge.resetFields()
       this.$emit('update:isShow', false)
+      this.$emit('reload')
     },
     async getEmployees() {
       console.log('focus')

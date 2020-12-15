@@ -3,7 +3,13 @@
     <div class="app-container">
       <h2>
         <el-card>
-          jjjj
+          <el-table>
+            <el-row>
+              <el-col>
+                <el-button size="small" type="primary">新增角色</el-button>
+              </el-col>
+            </el-row>
+          </el-table>
         </el-card>
       </h2>
     </div>

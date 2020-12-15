@@ -51,7 +51,7 @@ service.interceptors.response.use((res) => {
 function IsCheckTimeOut() {
   const currentTime = Date.now()
   const timeStamp = getTimeStamp()
-  return (currentTime - timeStamp) / 1000 >= 50000000
+  return (currentTime - timeStamp) / 1000 >= 50000
 }
 
 export default service

@@ -55,7 +55,7 @@ export default {
           await delDepartment(this.data.id)
           this.$emit('reload')
         } else if (type === 'edit') {
-          console.log('edit')
+          console.log('edit id ', this.data.name)
           this.$emit('edit', this.data)
         }
       } catch (error) {
