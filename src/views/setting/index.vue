@@ -2,7 +2,9 @@
   <div class="dashboard-container">
     <div class="app-container">
       <h2>
-        公司设置
+        <el-card>
+          jjjj
+        </el-card>
       </h2>
     </div>
   </div>

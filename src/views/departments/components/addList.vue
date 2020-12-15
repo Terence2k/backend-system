@@ -1,7 +1,7 @@
 <template>
   <div class="add-container">
     <!-- Form -->
-    <el-dialog title="新增部门" :visible="isShow" :close-on-click-modal="false" @close="cancleBtn">
+    <el-dialog :title="formData.id?'编辑部门':'新增部门'" :visible="isShow" :close-on-click-modal="false" @close="cancleBtn">
       <el-form ref="biaoge" :model="formData" :rules="rules">
         <el-form-item label="部门名称" :label-width="formLabelWidth" prop="name">
           <el-input v-model="formData.name" autocomplete="off" />
@@ -32,7 +32,7 @@
 
 <script>
 import { employees } from '@/api/employees'
-import { addDepartments, getDepartments, getDepartmentDetails } from '@/api/user'
+import { addDepartments, getDepartments, editDepartment } from '@/api/user'
 
 export default {
 
@@ -101,9 +101,12 @@ export default {
         const isValid = await this.$refs.biaoge.validate()
 
         if (isValid) {
-          console.log(this.formData)
-          const data = { ...this.formData, pid: this.info.id }
-          await addDepartments(data)
+          if (this.formData.id) {
+            await editDepartment(this.formData)
+          } else {
+            const data = { ...this.formData, pid: this.info.id }
+            await addDepartments(data)
+          }
           this.$refs.biaoge.resetFields()
           this.$emit('update:isShow', false)
           this.$emit('reload')
@@ -113,6 +116,12 @@ export default {
       }
     },
     cancleBtn() {
+      this.formData = {
+        name: '',
+        code: '',
+        manager: '',
+        introduce: ''
+      }
       this.$refs.biaoge.resetFields()
       this.$emit('update:isShow', false)
     },
@@ -127,8 +136,8 @@ export default {
       // 最简单的是直接将外面传进来的回显
       // this.formData = this.data
       // 更加准确应该是重新获取
-      const data = await getDepartmentDetails(this.data.id)
-      this.formData = data
+      this.formData = this.info
+      console.log('this.formData', this.formData)
     }
   }
 

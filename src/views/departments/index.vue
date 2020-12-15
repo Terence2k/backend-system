@@ -87,10 +87,11 @@ export default {
     },
     editDepartment(info) {
       this.isShow = true
+      this.info = info
       console.log(info, 'index get edit info')
-      // this.$nextTick(() => {
-      //   this.$refs.addList.getDepartmentDetails()
-      // })
+      this.$nextTick(() => {
+        this.$refs.addList.getDepartmentDetails()
+      })
     }
 
   }
