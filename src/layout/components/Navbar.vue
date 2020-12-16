@@ -143,7 +143,7 @@ export default {
       margin-right: 30px;
 
       .avatar-wrapper {
-        margin-top: 5px;
+        // margin-top: 5px;
         position: relative;
            .user-avatar {
           cursor: pointer;
