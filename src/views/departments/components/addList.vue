@@ -2,7 +2,7 @@
   <div class="add-container">
     <!-- Form -->
     <el-dialog :title="formData.id?'编辑部门':'新增部门'" :visible="isShow" :close-on-click-modal="false" @close="cancleBtn">
-      <el-form ref="biaoge" :model="formData" :rules="rules">
+      <el-form v-if="isShow" ref="biaoge" :model="formData" :rules="rules">
         <el-form-item label="部门名称" :label-width="formLabelWidth" prop="name">
           <el-input v-model="formData.name" autocomplete="off" />
         </el-form-item>

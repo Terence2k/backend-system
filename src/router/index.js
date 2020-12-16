@@ -6,13 +6,13 @@ Vue.use(Router)
 /* Layout */
 import Layout from '@/layout'
 
-import approvalsRouter from './modules/approvals'
 import departmentsRouter from './modules/departments'
+import settingRouter from './modules/setting'
 import employeesRouter from './modules/employees'
+import approvalsRouter from './modules/approvals'
 import permissionRouter from './modules/permission'
 import attendancesRouter from './modules/attendances'
 import salarysRouter from './modules/salarys'
-import settingRouter from './modules/setting'
 import socialRouter from './modules/social'
 
 export const constantRoutes = [
@@ -46,8 +46,8 @@ export const constantRoutes = [
 // 动态路由
 export const asyncRoutes = [
   departmentsRouter,
-  employeesRouter,
   settingRouter,
+  employeesRouter,
   approvalsRouter,
   permissionRouter,
   attendancesRouter,

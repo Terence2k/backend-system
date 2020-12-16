@@ -83,13 +83,13 @@ export default {
     },
     showDialog(info) {
       this.isShow = true
-      console.log(info, 'create info')
+
       this.info = info
     },
     editDepartment(info) {
       this.isShow = true
       this.info = info
-      console.log(info, 'index get edit info')
+
       this.$nextTick(() => {
         this.$refs.addList.getDepartmentDetails()
       })
