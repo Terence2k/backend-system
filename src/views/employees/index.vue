@@ -15,19 +15,33 @@
       <el-card>
 
         <el-table :data="list">
-          <el-table-column label="序号" prop="username">
+          <el-table-column label="序号" sortable="" prop="username">
             <template slot-scope="{$index}">
 
               {{ $index + 1 }}
             </template>
           </el-table-column>
-          <el-table-column label="用户名" prop="username" />
-          <el-table-column label="工号" prop="workNumber" />
-          <el-table-column label="聘用形式" prop="formOfEmployment" />
-          <el-table-column label="部门" prop="departmentName" />
-          <el-table-column label="入职时间" prop="timeOfEntry" />
-          <el-table-column label="庄户状态" prop="enableState" />
-          <el-table-column label="操作" prop="id" width="300px">
+          <el-table-column label="用户名" sortable="" prop="username" />
+          <el-table-column label="工号" sortable="" prop="workNumber" />
+          <el-table-column
+            label="聘用形式"
+            sortable=""
+            prop="formOfEmployment"
+            :formatter="formatEmployment"
+          />
+          <el-table-column label="部门" sortable="" prop="departmentName" />
+          <el-table-column label="入职时间">
+            <template slot-scope="{row}">
+              {{ row.timeOfEntry | formatDate }}
+            </template>
+          </el-table-column>
+          <el-table-column label="庄户状态" sortable="" prop="enableState">
+            <template slot-scope="{row}">
+
+              <el-switch :value="row.enableState===1" />
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" sortable="" prop="id" width="300px">
             <template>
               <el-button type="text" size="small">查看</el-button>
               <el-button type="text" size="small">转正</el-button>
@@ -55,6 +69,7 @@
 
 <script>
 import { getUserList } from '@/api/employees'
+import EmploymentEnum from '@/api/constant/employees'
 // import { getUserList } from '@/api/employess'
 // import { getUserList } from '@/api/employess'
 export default {
@@ -84,6 +99,10 @@ export default {
     sizeChange(val) {
       this.pageSetting.size = val
       this.getUserInfo()
+    },
+    formatEmployment(row, column, cellValue, index) {
+      const obj = EmploymentEnum.hireType.find(item => item.id === cellValue)
+      return obj ? obj.value : 'error'
     }
   }
 }
