@@ -5,3 +5,10 @@ export function employees() {
     url: '/sys/user/simple'
   })
 }
+
+export function getUserList(params) {
+  return request({
+    url: '/sys/user',
+    params
+  })
+}
