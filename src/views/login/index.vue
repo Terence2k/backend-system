@@ -99,6 +99,7 @@ export default {
       redirect: undefined
     }
   },
+  // token失效后记录原来的地址，然后跳转
   watch: {
     $route: {
       handler: function(route) {
