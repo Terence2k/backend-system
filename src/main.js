@@ -27,6 +27,13 @@ Vue.use(ElementUI)
 import Components from '@/components'
 Vue.use(Components)
 
+import * as filters from '@/filters'
+for (const key in filters) {
+  const filterName = key
+  const filterFunction = filters[key]
+  Vue.filter(filterName, filterFunction)
+}
+
 Vue.config.productionTip = false
 
 new Vue({
