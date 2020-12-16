@@ -149,10 +149,8 @@ export default {
         console.log(res, 'result')
       }
 
-      this.isShow = false
+      this.cancleBtn()
       this.getRoleListFn()
-      console.log(this.$refs.formRole, 'clear')
-      this.$refs.formRole.resetFields()
     },
     async delRole(id) {
       console.log(id)
