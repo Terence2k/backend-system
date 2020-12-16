@@ -42,13 +42,13 @@
             </template>
           </el-table-column>
           <el-table-column label="操作" sortable="" prop="id" width="300px">
-            <template>
+            <template slot-scope="{row}">
               <el-button type="text" size="small">查看</el-button>
               <el-button type="text" size="small">转正</el-button>
               <el-button type="text" size="small">调岗</el-button>
               <el-button type="text" size="small">离职</el-button>
               <el-button type="text" size="small">角色</el-button>
-              <el-button type="text" size="small">删除</el-button>
+              <el-button type="text" size="small" @click="delRole(row.id)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { getUserList } from '@/api/employees'
+import { getUserList, delEmployee } from '@/api/employees'
 import EmploymentEnum from '@/api/constant/employees'
 // import { getUserList } from '@/api/employess'
 // import { getUserList } from '@/api/employess'
@@ -80,13 +80,23 @@ export default {
         page: 1,
         size: 8,
         total: 20
-      }
+      },
+      isShow: false
     }
   },
   created() {
     this.getUserInfo()
   },
   methods: {
+    async delRole(id) {
+      try {
+        await this.$comfirm('sure del?')
+        const res = await delEmployee()
+        console.log(res)
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async  getUserInfo() {
       const { rows, total } = await getUserList(this.pageSetting)
       this.pageSetting.total = total
