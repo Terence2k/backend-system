@@ -9,7 +9,7 @@
         <template slot="after">
           <el-button size="small" type="warning">导入</el-button>
           <el-button size="small" type="danger">导出</el-button>
-          <el-button size="small" type="primary">新增员工</el-button>
+          <el-button size="small" type="primary" @click="isShow=true">新增员工</el-button>
         </template>
       </TopTools>
       <el-card>
@@ -63,6 +63,7 @@
           />
         </el-row>
       </el-card>
+      <AddEmployees :is-show.sync="isShow" />
     </div>
   </div>
 </template>
@@ -70,9 +71,11 @@
 <script>
 import { getUserList, delEmployee } from '@/api/employees'
 import EmploymentEnum from '@/api/constant/employees'
-// import { getUserList } from '@/api/employess'
-// import { getUserList } from '@/api/employess'
+import AddEmployees from './components/AddEmployees'
 export default {
+  components: {
+    AddEmployees
+  },
   data() {
     return {
       list: [],
