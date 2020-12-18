@@ -72,6 +72,8 @@
 import { getUserList, delEmployee } from '@/api/employees'
 import EmploymentEnum from '@/api/constant/employees'
 import AddEmployees from './components/AddEmployees'
+import employeesEnum from '@/api/constant/employees'
+import { formatDate } from '@/filters'
 export default {
   components: {
     AddEmployees
@@ -91,9 +93,64 @@ export default {
     this.getUserInfo()
   },
   methods: {
-    exportData() {
+    async exportData() {
+      // 表头字典
+      const headersEnum = {
+        '姓名': 'username',
+        '手机号': 'mobile',
+        '入职日期': 'timeOfEntry',
+        '聘用形式': 'formOfEmployment',
+        '转正日期': 'correctionTime',
+        '工号': 'workNumber',
+        '部门': 'departmentName'
+      }
 
+      const pageSetting = {
+        page: 1,
+        size: this.pageSetting.total
+      }
+      const { rows } = await getUserList(pageSetting)
+
+      const header = Object.keys(headersEnum)
+      const data = rows.map(item => {
+        return this.obj2Array(item, headersEnum)
+      })
+      console.log(data)
+      /*  excel.export_json_to_excel({
+        header: tHeader, // 表头 必填
+        data, // 具体数据 必填
+        filename: 'excel-list', // 非必填
+        autoWidth: true, // 非必填
+        bookType: 'xlsx' // 非必填
+      }) */
+      const excel = await import('@/vendor/Export2Excel')
+      excel.export_json_to_excel({
+        header,
+        data
+      })
     },
+    obj2Array(item, dictionary) {
+      // console.log('555555555555555555', item)
+
+      const arr = []
+      for (const key in dictionary) {
+        const name = dictionary[key]
+        // console.log(name, 'name')
+        let newkey = item[name]
+        // console.log(item[name], 'newkey')
+        if (name === 'correctionTime' || name === 'timeOfEntry') {
+          newkey = formatDate(newkey)
+        }
+        if (name === 'formOfEmployment') {
+          const obj = employeesEnum.hireType.find(item => item.id === newkey)
+          newkey = obj ? obj.value : '不确定的临时工'
+        }
+        arr.push(newkey)
+      }
+
+      return arr
+    },
+
     async delRole(id) {
       try {
         await this.$confirm('sure del?')
