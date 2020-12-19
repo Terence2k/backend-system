@@ -26,13 +26,15 @@
           <!-- 个人详情 -->
           <el-tab-pane label="个人详情">
             <el-row type="flex" justify="center" align="middle">
-              <UserInfo />
+
+              <component :is="UserInfoName" />
             </el-row>
           </el-tab-pane>
           <!-- 岗位详情 -->
           <el-tab-pane label="岗位详情">
             <el-row type="flex" justify="center" align="middle">
-              <JobInfo />
+
+              <component :is="JobInfo" />
             </el-row>
           </el-tab-pane>
         </el-tabs>
@@ -54,6 +56,8 @@ export default {
   },
   data() {
     return {
+      UserInfoName: 'UserInfo',
+      JobInfoName: 'JobInfo',
       userId: this.$route.params.id,
       formData: {
         username: '',
