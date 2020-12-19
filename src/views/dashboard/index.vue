@@ -29,15 +29,18 @@
         <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
       </div>
     </el-dialog>
-
+    <Pic />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-
+import Pic from '@/components/UploadPic'
 export default {
   name: 'Dashboard',
+  components: {
+    Pic
+  },
   data() {
     return {
 
