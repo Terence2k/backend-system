@@ -65,6 +65,7 @@ export default {
     async getDepartment() {
       const res = await getDepartments()
       this.departments = this.dealDepartmentData(res.depts, '')
+      console.log(this.departments)
       // this.departments = res.depts
     },
     dealDepartmentData(data, init) {
