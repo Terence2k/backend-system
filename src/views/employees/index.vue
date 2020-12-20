@@ -63,7 +63,7 @@
           />
         </el-row>
       </el-card>
-      <AddEmployees :is-show.sync="isShow" />
+      <AddEmployees :is-show.sync="isShow" @addEmployee="getUserInfo" />
     </div>
   </div>
 </template>

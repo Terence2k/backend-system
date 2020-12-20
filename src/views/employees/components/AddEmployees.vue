@@ -77,6 +77,7 @@
 <script>
 import { getDepartments } from '@/api/user'
 import employeesEnum from '@/api/constant/employees'
+import { addEmployee } from '@/api/employees'
 export default {
   props: {
     isShow: {
@@ -151,8 +152,10 @@ export default {
       })
       return arr
     },
-    sureInfo() {
-      console.log('ok')
+    async sureInfo() {
+      await addEmployee(this.formData)
+      this.$emit('update:isShow', false)
+      this.$emit('addEmployee')
     },
     cancleBtn() {
       this.$emit('update:isShow', false)
