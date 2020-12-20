@@ -59,13 +59,11 @@ export default {
         console.log(err || data)
         this.Show = false
         if (!err && data.statusCode === 200) {
-          console.log(this.fileList, 888888888888888888888888)
           this.fileList = this.fileList.map(item => {
             console.log(item.id, this.currentId, item.id === this.currentId, 'item.upload55555555555555555555555555555555555555555555')
             if (item.uid === this.currentId) {
               item.url = 'http://' + data.Location
               item.upload = true
-              console.log(item.upload, 'item.8888888888888888888888888888888')
             }
             return item
           })
