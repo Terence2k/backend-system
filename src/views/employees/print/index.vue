@@ -9,8 +9,12 @@
           </el-breadcrumb-item>
           <el-breadcrumb-item>打印</el-breadcrumb-item>
         </el-breadcrumb>
+        <el-row type="flex" justify="end">
+          <el-button v-print="printObj">打印</el-button>
+        </el-row>
         <div v-if="type === 'personal'">
           <h2 class="centInfo">员工信息表</h2>
+
           <table cellspacing="0" width="100%" class="tableList">
             <tr class="title">
               <td colspan="8" class="centInfo">基本信息</td>
@@ -333,6 +337,9 @@ import { getUserInfoId } from '@/api/user'
 export default {
   data() {
     return {
+      printObj: {
+        id: 'myPrint'
+      },
       formData: {},
       userId: this.$route.params.id,
       type: this.$route.query.type // 打印类型
@@ -344,6 +351,7 @@ export default {
   },
   // 组件更新
   methods: {
+
     async getPersonalDetail() {
       this.formData = await getPersonalDetail(this.userId) // 获取个人基本信息
     },
@@ -361,4 +369,12 @@ export default {
   padding: 30px 0;
   text-align: right;
 }
+/* @media print {
+  .sidebar-container, .navbar{
+    display: none;
+  }
+  #app .main-container{
+    margin-left: 0;
+  }
+} */
 </style>
