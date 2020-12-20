@@ -23,7 +23,13 @@
           </el-table-column>
           <el-table-column label="头像">
             <template slot-scope="{row}">
-              <img v-imageerror="require('@/assets/common/0.jpg')" style="border-radius:50%;width:100px;height:100px;padding:10px;" :src="row.staffPhoto" alt="pic">
+              <img
+                v-imageerror="require('@/assets/common/0.jpg')"
+                style="border-radius:50%;width:100px;height:100px;padding:10px;"
+                :src="row.staffPhoto"
+                alt="pic"
+                @click="row.staffPhoto? popCode(row.staffPhoto):(showCodeDialog= false)"
+              >
             </template>
           </el-table-column>
           <el-table-column label="用户名" sortable="" prop="username" />
@@ -69,6 +75,12 @@
         </el-row>
       </el-card>
       <AddEmployees :is-show.sync="isShow" @addEmployee="getUserInfo" />
+      <el-dialog title="二维码" :visible.sync="showCodeDialog" @opened="showQRcode">
+        <el-row type="flex" justify="center">
+          {{ imgURL }}
+          <canvas ref="myCanvas" />
+        </el-row>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -85,19 +97,28 @@ export default {
   },
   data() {
     return {
+      imgURL: '',
       list: [],
       pageSetting: {
         page: 1,
         size: 8,
         total: 20
       },
-      isShow: false
+      isShow: false,
+      showCodeDialog: false
+
     }
   },
   created() {
     this.getUserInfo()
   },
   methods: {
+    popCode(url) {
+      this.showCodeDialog = true
+      this.imgURL = url
+    },
+    showQRcode() {
+    },
     async exportData() {
       // 表头字典
       const headersEnum = {
