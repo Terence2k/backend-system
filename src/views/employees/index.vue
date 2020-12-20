@@ -77,7 +77,6 @@
       <AddEmployees :is-show.sync="isShow" @addEmployee="getUserInfo" />
       <el-dialog title="二维码" :visible.sync="showCodeDialog" @opened="showQRcode">
         <el-row type="flex" justify="center">
-          {{ imgURL }}
           <canvas ref="myCanvas" />
         </el-row>
       </el-dialog>
@@ -91,6 +90,7 @@ import EmploymentEnum from '@/api/constant/employees'
 import AddEmployees from './components/AddEmployees'
 import employeesEnum from '@/api/constant/employees'
 import { formatDate } from '@/filters'
+import QRcode from 'qrcode'
 export default {
   components: {
     AddEmployees
@@ -118,6 +118,8 @@ export default {
       this.imgURL = url
     },
     showQRcode() {
+      console.log(55555555)
+      QRcode.toCanvas(this.$refs.myCanvas, this.imgURL)
     },
     async exportData() {
       // 表头字典
