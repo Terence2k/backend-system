@@ -31,10 +31,7 @@ export default {
       isShow: false,
       Show: false,
       fileList: [
-        {
-          url: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2718853745,1288801299&fm=26&gp=0.jpg'
-        //   url: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=4267447972,2321885026&fm=26&gp=0.jpg'
-        }
+
       ],
       imgURL: '',
       currentId: ''
@@ -48,7 +45,6 @@ export default {
   methods: {
 
     uploadPic(params) {
-      console.log(params.file)
       cos.putObject({
         Bucket: 'web-storage-1304560197', /* 必须 */
         Region: 'ap-guangzhou', /* 存储桶所在地域，必须字段 */
@@ -63,12 +59,18 @@ export default {
         console.log(err || data)
         this.Show = false
         if (!err && data.statusCode === 200) {
+          console.log(this.fileList, 888888888888888888888888)
           this.fileList = this.fileList.map(item => {
-            if (item.id === this.currentId) {
+            console.log(item.id, this.currentId, item.id === this.currentId, 'item.upload55555555555555555555555555555555555555555555')
+            if (item.uid === this.currentId) {
               item.url = 'http://' + data.Location
+              item.upload = true
+              console.log(item.upload, 'item.8888888888888888888888888888888')
             }
             return item
           })
+
+          // this.fileList = [{ ...this.fileList, upload: false }]
         }
       })
     },
@@ -85,7 +87,7 @@ export default {
     },
     vailInfo(file, fileList) {
       const types = ['image/jpeg', 'image/gif', 'image/bmp', 'image/png']
-      console.log(types.includes(file.type), file.type)
+
       if (!types.includes(file.type)) {
         this.$message.error('只接受图片格式')
         return false
@@ -97,6 +99,7 @@ export default {
       }
       this.Show = true
       this.currentId = file.uid
+      console.log(this.currentId = file.uid, this.currentId, file.uid)
       return true
     }
   }
