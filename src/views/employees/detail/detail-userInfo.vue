@@ -358,7 +358,7 @@ export default {
     }
   },
   created() {
-    this.pageload()
+    this.getUserInfoId()
     this.getPersonalDetail()
   },
   methods: {

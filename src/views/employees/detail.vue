@@ -34,7 +34,7 @@
           <el-tab-pane label="岗位详情">
             <el-row type="flex" justify="center" align="middle">
 
-              <component :is="JobInfo" />
+              <component :is="JobInfoName" />
             </el-row>
           </el-tab-pane>
         </el-tabs>

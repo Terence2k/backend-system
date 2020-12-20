@@ -203,8 +203,12 @@ export default {
   },
   methods: {
     async saveJob() {
-      await updateJob(this.formData)
-      this.$message.success('保存')
+      try {
+        await updateJob(this.formData)
+      } catch (error) {
+        console.log(error)
+      }
+      this.$message.success('保存成功')
     },
     async employeesDetail() {
       this.depts = await employees()
