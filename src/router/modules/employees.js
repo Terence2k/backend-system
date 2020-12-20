@@ -25,7 +25,18 @@ export default {
       title: '内部'
 
     }
-  }]
+  },
+  {
+    name: 'print',
+    path: 'print/:id',
+    hidden: true,
+    component: () => import('@/views/employees/print'),
+    meta: {
+      title: '打印'
+
+    }
+  }
+  ]
 }
 
 // 当你的访问地址 是 /employees的时候 layout组件会显示 此时 你的二级路由的默认组件  也会显示
