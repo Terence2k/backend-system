@@ -21,6 +21,11 @@
               {{ $index + 1 }}
             </template>
           </el-table-column>
+          <el-table-column label="头像">
+            <template slot-scope="{row}">
+              <img v-imageerror="require('@/assets/common/0.jpg')" style="border-radius:50%;width:100px;height:100px;padding:10px;" :src="row.staffPhoto" alt="pic">
+            </template>
+          </el-table-column>
           <el-table-column label="用户名" sortable="" prop="username" />
           <el-table-column label="工号" sortable="" prop="workNumber" />
           <el-table-column
