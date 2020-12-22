@@ -30,20 +30,24 @@
       </div>
     </el-dialog>
     <Pic />
+    <el-button @click="showRoleDialog =true">弹出</el-button>
+    <AssignRole :show-role-dialog.sync="showRoleDialog" />
   </div>
 </template>
 
 <script>
+import AssignRole from '../employees/components/assign-role'
 import { mapGetters } from 'vuex'
 import Pic from '@/components/UploadPic'
 export default {
   name: 'Dashboard',
   components: {
-    Pic
+    Pic,
+    AssignRole
   },
   data() {
     return {
-
+      showRoleDialog: false,
       dialogTableVisible: false,
       dialogFormVisible: false,
       form: {

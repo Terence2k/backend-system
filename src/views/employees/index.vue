@@ -58,7 +58,7 @@
               <el-button type="text" size="small">转正</el-button>
               <el-button type="text" size="small">调岗</el-button>
               <el-button type="text" size="small">离职</el-button>
-              <el-button type="text" size="small">角色</el-button>
+              <el-button type="text" size="small" @click="showRole(row.id)">角色</el-button>
               <el-button type="text" size="small" @click="delRole(row.id)">删除</el-button>
             </template>
           </el-table-column>
@@ -74,6 +74,7 @@
           />
         </el-row>
       </el-card>
+      <AssignRole ref="assignRole" :show-role-dialog.sync="showRoleDialog" :user-id="userId" />
       <AddEmployees :is-show.sync="isShow" @addEmployee="getUserInfo" />
       <el-dialog title="二维码" :visible.sync="showCodeDialog" @opened="showQRcode">
         <el-row type="flex" justify="center">
@@ -88,12 +89,13 @@
 import { getUserList, delEmployee } from '@/api/employees'
 import EmploymentEnum from '@/api/constant/employees'
 import AddEmployees from './components/AddEmployees'
-import employeesEnum from '@/api/constant/employees'
 import { formatDate } from '@/filters'
 import QRcode from 'qrcode'
+import AssignRole from './components/assign-role'
 export default {
   components: {
-    AddEmployees
+    AddEmployees,
+    AssignRole
   },
   data() {
     return {
@@ -105,7 +107,9 @@ export default {
         total: 20
       },
       isShow: false,
-      showCodeDialog: false
+      showCodeDialog: false,
+      showRoleDialog: false,
+      userId: ''
 
     }
   },
@@ -113,6 +117,11 @@ export default {
     this.getUserInfo()
   },
   methods: {
+    async showRole(id) {
+      this.showRoleDialog = true
+      this.userId = id
+      await this.$refs.assignRole.getUserInfoId(id)
+    },
     popCode(url) {
       this.showCodeDialog = true
       this.imgURL = url
@@ -170,7 +179,7 @@ export default {
           newkey = formatDate(newkey)
         }
         if (name === 'formOfEmployment') {
-          const obj = employeesEnum.hireType.find(item => item.id === newkey)
+          const obj = EmploymentEnum.hireType.find(item => item.id === newkey)
           newkey = obj ? obj.value : '不确定的临时工'
         }
         arr.push(newkey)
