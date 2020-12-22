@@ -37,7 +37,7 @@ export default {
     async getPermissionList() {
       this.permissionList = await getPermissionList()
       console.log(this.permissionList)
-      this.dealData(this.permissionList, '0')
+      this.permissionList = this.dealData(this.permissionList, '0')
       console.log(this.permissionList)
     },
     dealData(data, init) {
