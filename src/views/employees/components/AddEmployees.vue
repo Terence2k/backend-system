@@ -130,7 +130,6 @@ export default {
   },
   methods: {
     selectNode(data) {
-      console.log(555, data)
       this.formData.departmentName = data.name
       this.treeData = []
     },

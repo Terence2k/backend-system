@@ -77,8 +77,8 @@ export default {
     },
     async  uploadInfo() {
       this.formData = { ...this.formData, password: this.formData.newPassword }
-      console.log('upload', 55555555555555555555555)
       await saveUserDetailById(this.formData)
+      this.$router.back()
     }
   }
 }
