@@ -23,7 +23,7 @@
                 <el-table-column prop="description" label="描述" />
                 <el-table-column label="操作">
                   <template slot-scope="scope">
-
+                    <el-button @click="dealPermission(scope.row.id)">权限分配</el-button>
                     <el-button type="primary" @click="delRole(scope.row.id)">del</el-button>
                     <el-button type="primary" @click="editRole(scope.row.id)">edit</el-button>
                   </template>
@@ -80,7 +80,28 @@
         <template>
           <el-button type="primary" @click="sureBtn">确认</el-button>
           <el-button @click="cancleBtn">取消</el-button>
+
         </template>
+      </el-dialog>
+
+      <!-- 权限弹窗 -->
+      <el-dialog :visible="pShow" title="分配权限" @close="btnCancelPerm">
+
+        <el-tree
+          ref="permTree"
+          node-key="id"
+          :data="treedata"
+          :props="{ label: 'name' }"
+          :show-checkbox="true"
+          :check-strictly="true"
+
+          :default-checked-keys="selectCheck"
+        />
+        <el-row>
+          <el-button type="primary" @click="btnOkPerm">确认</el-button>
+          <el-button @click="btnCancelPerm">取消</el-button>
+        </el-row>
+
       </el-dialog>
     </div>
   </div>
@@ -92,7 +113,9 @@ import { getRoleList,
   delRole,
   addRole,
   getRoleDetail,
-  updateRole } from '@/api/setting'
+  updateRole,
+  assignPerm } from '@/api/setting'
+import { getPermissionList } from '@/api/permission'
 
 export default {
   data() {
@@ -110,7 +133,11 @@ export default {
       roleFormData: {
         name: '',
         description: ''
-      }
+      },
+      pShow: false,
+      treedata: [],
+      selectCheck: [],
+      roleId: ''
 
     }
   },
@@ -132,6 +159,37 @@ export default {
     this.getRoleListFn()
   },
   methods: {
+    async btnOkPerm() {
+      // 发送请求, 拿到两个东西,
+      // 1. 当前选中的角色id值
+      const id = this.roleId
+      // 2. 用户改掉的权限勾选数组
+      // console.log(this.selectCheck)
+      // console.log('--------------')
+      console.log(this.$refs.permTree.getCheckedNodes(), 'node')
+      console.log(this.$refs.permTree.getCheckedKeys(), 'keys')
+      const permIds = this.$refs.permTree.getCheckedKeys()
+      const data = {
+        id,
+        permIds
+      }
+      await assignPerm(data)
+      this.$message.success('修改成功')
+      this.pShow = false
+    },
+    btnCancelPerm() {
+      this.selectCheck = []
+      this.pShow = false
+    },
+    async dealPermission(id) {
+      this.roleId = id
+      const { permIds } = await getRoleDetail(id)
+      this.selectCheck = permIds
+      console.log(permIds, 222222222222222222222)
+      const data = await getPermissionList(id)
+      this.pShow = true
+      this.treedata = this.dealData(data, '0')
+    },
     cancleBtn() {
       this.roleFormData = {
         name: '',
@@ -186,6 +244,19 @@ export default {
     sizeChange(value) {
       this.pageSetting.pagesize = value
       this.getRoleListFn()
+    },
+    dealData(data, init) {
+      const arr = []
+      data.forEach(item => {
+        if (item.pid === init) {
+          const children = this.dealData(data, item.id)
+          if (children.length > 0) {
+            item.children = children
+          }
+          arr.push(item)
+        }
+      })
+      return arr
     }
   }
 }
