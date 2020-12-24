@@ -50,10 +50,8 @@ export const constantRoutes = [
         component: () => import('@/views/import/index'),
         meta: { title: 'excel' }
       }]
-  },
+  }
 
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
 ]
 
 // 动态路由
@@ -65,7 +63,9 @@ export const asyncRoutes = [
   permissionRouter,
   attendancesRouter,
   salarysRouter,
-  socialRouter
+  socialRouter,
+  { path: '*', redirect: '/404', hidden: true }
+
 ]
 
 const createRouter = () => new Router({

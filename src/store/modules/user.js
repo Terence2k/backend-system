@@ -39,6 +39,7 @@ export default {
       const userInfo = { ...res, ...resId }
 
       context.commit('setUserInfo', userInfo)
+      return userInfo
     },
     logout({ commit }) {
       commit('removeToken')

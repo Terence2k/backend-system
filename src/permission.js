@@ -14,11 +14,17 @@ router.beforeEach(async(to, from, next) => {
       next('/')
     } else {
       if (!store.getters.userId) {
-        await store.dispatch('user/getUserInfo')
-        router.addRoutes(asyncRoutes)
+        const { roles } = await store.dispatch('user/getUserInfo')
+        // const myRouter = asyncRoutes.filter(item => roles.menus.includes(item.name))
+        const myRouter = asyncRoutes.filter(item => roles.menus.indexOf(item.name) > -1)
+        // 404 page must be placed at the end !!!
+
+        myRouter.push({ path: '*', redirect: '/404', hidden: true })
+        router.addRoutes(myRouter)
         next(to.path)
+      } else {
+        next()
       }
-      next()
     }
   } else {
     if (whiteList.includes(to.path)) {
