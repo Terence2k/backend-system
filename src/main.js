@@ -30,6 +30,9 @@ Vue.use(Components)
 import Print from 'vue-print-nb'
 Vue.use(Print)
 
+import { valiPermission } from '@/mixin'
+Vue.mixin(valiPermission)
+
 import * as filters from '@/filters'
 for (const key in filters) {
   const filterName = key
