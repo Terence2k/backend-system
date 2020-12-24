@@ -4,8 +4,6 @@ import store from './store'
 import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 
-import { asyncRoutes } from '@/router'
-
 const whiteList = ['/login', '/404']
 router.beforeEach(async(to, from, next) => {
   NProgress.start()
@@ -16,10 +14,7 @@ router.beforeEach(async(to, from, next) => {
       if (!store.getters.userId) {
         const { roles } = await store.dispatch('user/getUserInfo')
         // const myRouter = asyncRoutes.filter(item => roles.menus.includes(item.name))
-        const myRouter = asyncRoutes.filter(item => roles.menus.indexOf(item.name) > -1)
-        // 404 page must be placed at the end !!!
-
-        myRouter.push({ path: '*', redirect: '/404', hidden: true })
+        const myRouter = await store.dispatch('permission/filterRouter', roles)
         router.addRoutes(myRouter)
         next(to.path)
       } else {
