@@ -3,7 +3,7 @@
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
     <div class="app-breadcrumb">
-      江苏传智播客教育科技股份有限公司
+      xxxxxxxxxxxxx股份有限公司
       <span class="breadBtn">体验版</span>
     </div>
     <div class="right-menu">

@@ -43,7 +43,7 @@ export default {
         children: 'children'
       },
       company: {
-        name: '江苏传智播客教育科技股份有限公司',
+        name: 'xxxxxxxxxxxxxxxxxxxxxxxx有限公司',
         manager: '负责人'
       },
       departments: [],

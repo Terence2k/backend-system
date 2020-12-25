@@ -62,3 +62,9 @@ export function editDepartment(data) {
     data
   })
 }
+
+export function getUserDetailById(id) {
+  return request({
+    url: '/sys/user/' + id
+  })
+}

@@ -14,7 +14,7 @@ import permissionRouter from './modules/permission'
 import attendancesRouter from './modules/attendances'
 import salarysRouter from './modules/salarys'
 import socialRouter from './modules/social'
-
+import userRouter from './modules/user'
 export const constantRoutes = [
   {
     path: '/login',
@@ -39,18 +39,7 @@ export const constantRoutes = [
       meta: { title: '首页', icon: 'dashboard' }
     }]
   },
-  {
-    path: '/import',
-    component: Layout,
-    redirect: '/dashboard',
-    hidden: true,
-    children: [
-      {
-        path: '',
-        component: () => import('@/views/import/index'),
-        meta: { title: 'excel' }
-      }]
-  }
+  userRouter
 
 ]
 
@@ -64,6 +53,7 @@ export const asyncRoutes = [
   attendancesRouter,
   salarysRouter,
   socialRouter,
+
   { path: '*', redirect: '/404', hidden: true }
 
 ]

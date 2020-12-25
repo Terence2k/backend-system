@@ -44,7 +44,7 @@ service.interceptors.response.use((res) => {
   // console.dir(err)
   Message.error(err.message)
   // Message.error(err.response.data.message)
-  return Promise.reject(new Error('相应报错'))
+  return Promise.reject(new Error('响应报错'))
 }
 )
 
