@@ -7,6 +7,7 @@
       <span class="breadBtn">体验版</span>
     </div>
     <div class="right-menu">
+      <FullScreen class="fullscreen" />
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <!-- <img  src="@/assets/common/bigUserHeader.png" class="user-avatar"> -->
@@ -120,7 +121,13 @@ export default {
     &:focus {
       outline: none;
     }
-
+ .fullscreen {
+        display: inline;
+        position: absolute;
+        right: 120px;
+        top: 5px;
+        color: #fff;
+      }
     .right-menu-item {
       display: inline-block;
       padding: 0 8px;
