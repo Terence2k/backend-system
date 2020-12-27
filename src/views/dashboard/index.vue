@@ -1,6 +1,7 @@
 <template>
   <div class="dashboard-container">
     <!-- 头部内容 -->
+    {{ $t('hello') }}
     <el-card class="header-card">
       <div>
         <div class="fl headL">

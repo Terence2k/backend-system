@@ -40,11 +40,14 @@ for (const key in filters) {
   Vue.filter(filterName, filterFunction)
 }
 
+import i18n from '@/i18n'
+
 Vue.config.productionTip = false
 
 new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   render: h => h(App)
 })
