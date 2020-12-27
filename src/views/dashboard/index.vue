@@ -85,7 +85,8 @@
           <div slot="header" class="header">
             <span>绩效指数</span>
           </div>
-        <!-- 放置雷达图 -->
+          <!-- 放置雷达图 -->
+          <Radar />
         </el-card>
         <!-- 帮助连接 -->
         <el-card class="box-card">
@@ -121,6 +122,7 @@
 </template>
 
 <script>
+import Radar from './components/radar'
 import Workcalendar from './components/work-calendar'
 // import { createNamespacedHelpers } from 'vuex'
 import { createNamespacedHelpers } from 'vuex'
@@ -128,7 +130,8 @@ const { mapState } = createNamespacedHelpers('user')
 export default {
   name: 'DashBoard',
   components: {
-    Workcalendar
+    Workcalendar,
+    Radar
   },
   data() {
     return {
