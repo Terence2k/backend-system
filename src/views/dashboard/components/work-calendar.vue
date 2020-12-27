@@ -75,7 +75,6 @@ export default {
       const now = new Date()
       return index + now.getFullYear() - 5
     })
-    console.log(this.yearl, 'this.yearl')
   },
   methods: {
     // 是否是休息日
