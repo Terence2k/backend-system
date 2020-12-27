@@ -40,7 +40,7 @@ const messages = {
 export default new VueI18n({
   // locale 指定当前激活的默认语言
   // messages 指定字典
-  locale: 'en',
+  locale: 'cn',
   messages
 })
 
