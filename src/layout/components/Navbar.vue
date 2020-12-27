@@ -8,6 +8,7 @@
     </div>
     <div class="right-menu">
       <FullScreen class="fullscreen" />
+      <ThemeColor class="themecolor" />
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <!-- <img  src="@/assets/common/bigUserHeader.png" class="user-avatar"> -->
@@ -127,6 +128,11 @@ export default {
         right: 120px;
         top: 5px;
         color: #fff;
+      }
+ .themecolor {
+          position: absolute;
+        top: 16px;
+        right: 148px;
       }
     .right-menu-item {
       display: inline-block;

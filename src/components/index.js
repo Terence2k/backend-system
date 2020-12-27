@@ -4,6 +4,7 @@ import pageTools from '@/components/pageTools'
 import UploadExcel from '@/components/UploadExcel'
 import UploadPic from '@/components/UploadPic'
 import FullScreen from '@/components/FullScreen'
+import ThemeColor from '@/components/ThemeColor'
 export default {
   install(Vue) {
     Vue.component('TopTools', pageTools)
@@ -11,5 +12,6 @@ export default {
     Vue.component('UploadExcel', UploadExcel)
     Vue.component('UploadPic', UploadPic)
     Vue.component('FullScreen', FullScreen)
+    Vue.component('ThemeColor', ThemeColor)
   }
 }
