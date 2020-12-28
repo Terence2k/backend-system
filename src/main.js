@@ -19,10 +19,13 @@ import * as directives from '@/directives'
 Object.keys(directives).forEach(key => {
   Vue.directive(key, directives[key])
 })
+import i18n from '@/i18n'
 // set ElementUI lang to EN
 // Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
-Vue.use(ElementUI)
+Vue.use(ElementUI, {
+  i18n: (key) => i18n.t(key)
+})
 
 import Components from '@/components'
 Vue.use(Components)
@@ -39,8 +42,6 @@ for (const key in filters) {
   const filterFunction = filters[key]
   Vue.filter(filterName, filterFunction)
 }
-
-import i18n from '@/i18n'
 
 Vue.config.productionTip = false
 
